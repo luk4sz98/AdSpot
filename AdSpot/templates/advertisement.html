@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Advertisement</title>
+</head>
+<style>
+    .container {
+        display: inline-flex;
+        width: 100%;
+        justify-content: center; 
+        min-height: 900px;
+        height: 100%;
+    }
+
+    .menu {
+        width: 20%;
+        border-right: 1px solid black;
+        margin: 20px;
+    }
+
+    .content {
+        width: 80%;
+        margin: 20px;
+
+    }
+</style>
+<body>
+        <div class="container">
+            <div class="menu">qq</div>
+            <div class="content">
+                <h2>{{ advertisement.name }}</h2>
+                <p>
+        
+                    {{ advertisement.description }}
+                </p>
+
+            </div>
+        </div>
+</body>
+</html>
