@@ -1,0 +1,23 @@
+
+{% extends 'template.html' %}
+
+{% block data %}
+<h2>Dodaj ogłoszenie</h2>
+<form method="POST" action="{% url 'addAdvertisement' %}">
+    {% csrf_token %}
+    <label for="name">Nazwa:</label>
+    <input type="text" id="name" name="name" required>
+    
+    <label for="description">Opis:</label>
+    <textarea id="description" name="description" required></textarea>
+    
+    <label for="adType">Typ:</label>
+    <select name="adType" id="adType">
+        {% for type in adTypes %}
+        
+        <option value="{{ type.name }}">{{ type.name }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Wyślij">
+</form>
+{% endblock data %}
