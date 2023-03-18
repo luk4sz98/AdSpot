@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Advertisement</title>
+</head>
+<style>
+    .container {
+        display: inline-flex;
+        width: 100%;
+        justify-content: center; 
+        min-height: 900px;
+        height: 100%;
+    }
+
+    .menu {
+        width: 20%;
+        border-right: 1px solid black;
+        margin: 20px;
+    }
+
+    .content {
+        width: 80%;
+        margin: 20px;
+
+    }
+
+    .menu-list {
+        display: flex;
+        justify-content: center;
+        margin-right: 50px; 
+        margin-bottom: 10px; 
+        padding: 20px; 
+        background-color:darkgray; 
+        border-radius: 10px;
+        color: white;
+    }
+
+    .menu-list:hover {
+        background-color:gray; 
+        cursor: pointer;
+       
+    }
+    a {
+        text-decoration: none;
+        color: black;
+    }
+</style>
+<body>
+        <div class="container">
+            <div class="menu">
+            <a href="/">
+                <div class="menu-list">
+                    Wszystkie ogłoszenia
+                </div>
+            </a>
+            <a href="/">
+                <div class="menu-list">Dodaj ogłoszenie</div>
+            </a>
+            <a href="/">
+                <div class="menu-list">Moje ogłoszenia</div>
+            </a>
+            </div>
+            <div class="content">
+                {% block data %} {% endblock data %}
+            </div>
+        </div>
+</body>
+</html>
+

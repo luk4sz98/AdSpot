@@ -1,27 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Index</title>
-</head>
 <style>
     table, th, td {
       border:1px solid black;
     }
-    .container {
-        display: inline-flex;
-        width: 100%;
-        justify-content: center; 
-        min-height: 900px;
-        height: 100%;
-    }
-
-    .menu {
-        width: 20%;
-        border-right: 1px solid black;
-        margin: 20px;
-    }
-
     .content {
         width: 80%;
         margin: 20px;
@@ -37,40 +17,26 @@
         color: black;
     }
 </style>
-<body>
-            <div class="container">
-                <div class="menu">qq</div>
-                <div class="content">
-                <table style="width: 100%;">
-                    <tr>
-                        <th>Nazwa</th>
-                        <th>Data dodania</th>
-                        <th>Typ</th>
-                        <th></th>
-                    </tr>
-                    {% for ad in advertisements %}
-                    <tr>
-                        <td>{{ ad.name }}</td>
-                        <td>{{ ad.date }}</td>
-                        <td>{{ ad.adType }}</td>
-                        <td><a href="ad/{{ ad.id }}">Szczegóły</a></td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        </div>
-</body>
-</html>
 
-<!--
-    <h2>{{ advertisement.name }}</h2>
-        <p>
+{% extends 'template.html' %}
 
-            {{ advertisement.description }}
-        </p>
-        <p>
+{% block data %}
 
-            aaa
-        </p>
-    
--->
+<table style="width: 100%;">
+    <tr>
+        <th>Nazwa</th>
+        <th>Data dodania</th>
+        <th>Typ</th>
+        <th></th>
+    </tr>
+    {% for ad in advertisements %}
+    <tr>
+        <td>{{ ad.name }}</td>
+        <td>{{ ad.date }}</td>
+        <td>{{ ad.adType }}</td>
+        <td><a href="ad/{{ ad.id }}">Szczegóły</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock data %}
