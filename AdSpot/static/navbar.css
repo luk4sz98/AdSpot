@@ -1,0 +1,17 @@
+﻿.subLink {
+    font-size: 20px;
+    opacity: 1 !important;
+    border-radius: 2rem;
+    color: black !important;
+}
+
+.subLink.active {
+    background-color: lightseagreen;
+    border-radius: 2rem;
+    color: #fff !important;
+}
+
+.subLink:hover {
+    background-color: lightseagreen;
+    color: #fff !important;
+}

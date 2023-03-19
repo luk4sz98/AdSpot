@@ -1,70 +1,124 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Advertisement</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'footer.css' %}">
+    <link rel="stylesheet" href="{% static 'registration.css' %}">
+    <link rel="stylesheet" href="{% static 'navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'common.css' %}">
 </head>
-<style>
-    .container {
-        display: inline-flex;
-        width: 100%;
-        justify-content: center; 
-        min-height: 900px;
-        height: 100%;
-    }
 
-    .menu {
-        width: 20%;
-        border-right: 1px solid black;
-        margin: 20px;
-    }
-
-    .content {
-        width: 80%;
-        margin: 20px;
-
-    }
-
-    .menu-list {
-        display: flex;
-        justify-content: center;
-        margin-right: 50px; 
-        margin-bottom: 10px; 
-        padding: 20px; 
-        background-color:darkgray; 
-        border-radius: 10px;
-        color: white;
-    }
-
-    .menu-list:hover {
-        background-color:gray; 
-        cursor: pointer;
-       
-    }
-    a {
-        text-decoration: none;
-        color: black;
-    }
-</style>
 <body>
+    <!-- Offcanvas menu -->
+    <nav class="menu navbar navbar-light">
         <div class="container">
-            <div class="menu">
-            <a href="/">
-                <div class="menu-list">
-                    Wszystkie ogłoszenia
-                </div>
-            </a>
-            <a href="/">
-                <div class="menu-list">Dodaj ogłoszenie</div>
-            </a>
-            <a href="/">
-                <div class="menu-list">Moje ogłoszenia</div>
-            </a>
-            </div>
-            <div class="content">
-                {% block data %} {% endblock data %}
-            </div>
+            <a class="navbar-brand" href="/">AdSpot</a>
+            <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
+                href="#offcanvas" aria-controls="offcanvas">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         </div>
-</body>
-</html>
+    </nav>
 
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvas"
+        aria-labelledby="offcanvasLabel">
+        <div class="offcanvas-header">
+            <button type="button" class="btn-close text-reset ms-auto" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body text-center">
+            {% if user.is_authenticated %}
+            <div class="mb-3">
+                <a class="btn btn-primary" id="addAdvertButton" asp-controller="Advert" asp-action="AddOrEdit">
+                    Dodaj ogłoszenie
+                </a>
+            </div>
+            <div class="mb-3">
+                <a class="btn btn-primary d-block w-100" id="menuButton" asp-controller="Advert"
+                    asp-action="ActiveAdverts">Ogłoszenia</a>
+            </div>
+            <div class="mb-3">
+                <a asp-controller="Account" asp-action="Index" class="btn btn-primary d-block w-100"
+                    id="menuButton">Ustawienia</a>
+            </div>
+            <div class="mb-3">
+                <a class="btn btn-primary d-block w-100" id="menuButton" href="/">Strona
+                    główna</a>
+            </div>
+            <div class="mb-3">
+                <a class="btn btn-primary d-block w-100" id="menuButton" href="logout">Wyloguj</a>
+            </div>
+            {% else %}
+            <div class="mb-3">
+                <a class="btn btn-primary d-block w-100" id="menuButton" href="/">Strona
+                    główna</a>
+            </div>
+            <div class="mb-3">
+                <a href="login" class="nav-link active shadow-none" id="loginButton"
+                    style="font-size: 18px;">Zaloguj</a>
+            </div>
+            <div class="mb-3">
+                <a href="registration" class="btn btn-primary shadow-none w-50"
+                    id="registrationButton" style="font-size: 18px;">Rejestracja</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container">
+        {% block data %} {% endblock data %}
+    </div>
+
+    <footer class="footer-basic">
+        <ul class="list-inline">
+            <li class="list-inline-item">
+                <a class="d-none d-md-inline" href="/">
+                    Strona główna
+                </a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="list-inline-item">
+                <a class="d-none d-md-inline" href="ad">
+                    Ogłoszenia
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a class="d-none d-md-inline" href="ad/add">
+                    Dodaj ogłoszenie
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a class="d-none d-md-inline" href="user/settings">
+                    Ustawienia
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a class="d-none d-md-inline" href="logout">
+                    Wyloguj
+                </a>
+            </li>
+            {% else %}
+            <li class="list-inline-item">
+                <a class="d-none d-md-inline" href="login">
+                    Logowanie
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a class="d-none d-md-inline" href="registration">
+                    Rejestracja
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+        <p class="copyright">AdSpot © 2023</p>
+    </footer>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+
+</html>

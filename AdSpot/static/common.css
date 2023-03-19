@@ -1,0 +1,176 @@
+body {
+    height: 100vh;
+}
+
+footer {
+    min-height: 50px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+footer {
+    margin-top: auto;
+}
+
+#brand:hover {
+    opacity: 0.5;
+}
+
+#registrationButton {
+    border-radius: 2rem;
+    color: #ffffff;
+    margin-left: 10px;
+    background-color: lightseagreen;
+    border-color: lightseagreen !important;
+}
+
+@media (max-width: 765px) {
+    .nav-item a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+.buttons-pdf, .buttons-print, .buttons-csv, .buttons-copy, .buttons-excel {
+    margin-top: 20px;
+    color: var(--bs-secondary);
+    background-color: #fff;
+    border: none;
+}
+
+.fa-file-pdf, .fa-print, .fa-file-text-o, .fa-file-excel, .fa-copy {
+    font-size: 30px;
+}
+
+.menu {
+    position: -webkit-sticky !important; /* Safari */
+    position: sticky !important;
+    z-index: 1000 !important;
+    top: 0 !important;
+    background-color: #fff;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    opacity: 0.95;
+}
+
+#registrationButton:hover {
+    background-color: #ffffff;
+    color: lightseagreen;
+}
+
+#loginButton:hover {
+    color: rgba(0,0,0,0.25);
+}
+
+@media (max-width: 768px) {
+    .footer-icon {
+        font-size: 30px;
+        margin-left: 10px;
+        margin-right: 10px
+    }
+}
+
+@media (max-width: 576px) {
+    .col-sm-6.col-md-4.col-lg-3.item:hover img {
+        transform: scale(1.1);
+    }
+
+    .col-sm-6.col-md-4.col-lg-3.item img {
+        transition: all 0.75s ease;
+    }
+
+    .col-sm-6.col-md-4.col-lg-3.item {
+        overflow: hidden;
+        border-radius: 1rem;
+    }
+
+    .offcanvas {
+        width: 100%;
+    }
+
+    #registrationButton {
+        margin-left: 0px;
+    }
+}
+
+
+#logInFormButton:hover {
+    opacity: 0.75;
+}
+
+
+#loginButton {
+    font-size: 18px;
+    color: rgba(0,0,0,1);
+}
+
+.icon-menu {
+    font-size: 30px;
+}
+
+.icon-menu:hover {
+    opacity: 1;
+    color: black;
+}
+
+
+#menuButton {
+    border: none;
+    box-shadow: none;
+    text-shadow: none;
+    outline: none !important;
+    background: white;
+    padding: 15px;
+    color: black;
+    font-size: 18px;
+}
+
+#menuButton:hover {
+    color: var(--bs-secondary);
+}
+
+#addAdvertButton {
+    border: none;
+    box-shadow: none;
+    text-shadow: none;
+    outline: none !important;
+    background-color: lightseagreen;
+    padding: 14px;
+    color: #ffffff;
+    font-size: 17px;
+    border-radius: 2rem;
+    opacity: 1;
+}
+
+#addAdvertButton .icon-plus {
+    margin-top: 20px;
+    line-height: 25px;
+    margin-left: 5px;
+    font-size: 18px;
+}
+
+#addAdvertButton:hover {
+    opacity: 0.9;
+}
+
+.footer-icon {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.alertMessage {
+    position: absolute;
+    top: 120px;
+    right: 60px;
+    z-index: 10000;
+    opacity: 0.92;
+}
+
+.advertLink:hover {
+    font-weight: 500;
+}

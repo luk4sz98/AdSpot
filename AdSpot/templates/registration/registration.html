@@ -1,0 +1,58 @@
+{% extends 'template.html' %}
+
+{% block data %}
+
+<section class="registration" style="background: rgb(255,255,255);">
+    <form autocomplete="off" id="form" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="shadow" data-aos="fade-down" data-aos-duration="800" data-aos-delay="800" data-aos-once="true" style="border-radius: 1rem;">
+        <div class="row">
+            <div class="col d-flex justify-content-center align-items-center my-2">
+                <h2>
+                    Rejestracja                  
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-center align-content-center mb-2">
+                <h4>Wypełnij wszystkie pola</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-floating mb-3 col-md-6">
+                <input id="firstName" class="form-control" placeholder="Imie">
+                <label id="firstNameLabel" class="form-label" for="firstName">Imie</label>
+                <span class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3 col-md-6">
+                <input id="lastName" class="form-control" placeholder="Nazwisko">
+                <label id="lastNameLabel" class="form-label" for="lastName">Nazwisko</label>
+                <span class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="mb-3 form-floating col">
+                <input id="email" class="form-control" placeholder="Email">
+                <label id="emailLabel" class="form-label" for="email">Email</label>
+                <span class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-floating mb-3 col-md-6">
+                <input class="form-control" placeholder="Hasło" id="password">
+                <label id="passwordLabel" class="form-label" for="password">Hasło</label>
+                <span class="text-danger"></span>
+            </div>
+            <div class="form-floating col-md-6 mb-3">
+                <input id="confirmPassword" class="form-control" placeholder="Potwierdź hasło">
+                <label id="confirmationLabel" class="form-label" for="confirmPassword">Potwierdź hasło</sup></label>
+                <span class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <button class="btn btn-primary d-block w-50 mx-auto" id="logInFormButton" type="button" style="border-radius: 2rem;background: lightseagreen;">Zarejestruj</button>
+        </div>
+        <a class="forgot" href="login">Masz już konto? Zaloguj się</a>
+    </form>
+</section>
+
+{% endblock data %}
