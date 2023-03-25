@@ -34,4 +34,9 @@ def addAdvertisement(request):
     status = AdStatus[0]
     data = Advertisement(name = name, description = description,  date = date, status= status, user = user, adType = adType)
     data.save()
-    return render(request, 'addAdvertisement.html')
+    return render(request, 'added.html')
+
+def getMyAdvertisements(request): 
+    advertisements = Advertisement.objects.filter(user_id = request.user)
+    data = {'advertisements': advertisements}
+    return render(request, 'index.html',data)
