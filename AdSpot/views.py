@@ -27,7 +27,8 @@ def logout_view(request):
 def registration_view(request):
     user = request.user
     if user.is_authenticated:
-        return HttpResponse(f"Już jesteś zarejestrowany jako {user.email}.")
+        messages.warning(request, f"Jesteś już zarejestrowany!")
+        return redirect("/")
     context = {}
 
     if request.method == "POST":
