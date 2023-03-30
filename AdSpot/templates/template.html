@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'registration.css' %}">
     <link rel="stylesheet" href="{% static 'navbar.css' %}">
     <link rel="stylesheet" href="{% static 'common.css' %}">
+    <link rel="stylesheet" href="{% static 'loginForm.css' %}">
 </head>
 
 <body>
@@ -123,12 +124,12 @@
             </li>
             {% else %}
             <li class="list-inline-item">
-                <a class="d-none d-md-inline" href="login">
+                <a class="d-none d-md-inline" href="/login">
                     Logowanie
                 </a>
             </li>
             <li class="list-inline-item">
-                <a class="d-none d-md-inline" href="registration">
+                <a class="d-none d-md-inline" href="/registration">
                     Rejestracja
                 </a>
             </li>

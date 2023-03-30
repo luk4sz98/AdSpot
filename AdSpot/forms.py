@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 
 
 class RegistrationForm(UserCreationForm):
@@ -25,4 +26,21 @@ class RegistrationForm(UserCreationForm):
 		except User.DoesNotExist:
 			return username
 		raise forms.ValidationError('Nazwa użytkownika "%s" jest już w użyciu.' % account.username)
-	
+
+class LoginForm(forms.Form):
+	username = forms.CharField(max_length=254, help_text='Nazwa użytkownika jest wymagana do zalogowania.')
+	password = forms.CharField(widget=forms.PasswordInput, help_text="Adres email jest wymagany do zalogowania.")
+
+	class Meta:
+		model = User
+		fields = ('username', 'password')
+
+	def check(self, request):
+		username = self.cleaned_data['username']
+		password = self.cleaned_data['password']
+		user = authenticate(request, username=username, password=password)
+		if user is not None:
+			login(request, user)
+			return True
+		self.add_error(None, "Nieprawidłowe dane logowania")
+		return False

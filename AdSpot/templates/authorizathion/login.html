@@ -2,15 +2,43 @@
 
 {% block data %}
 
-<div>
-    {% if not user.is_authenticated %} 
-        <h2>Logowanie</h2>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Zaloguj</button>
-        </form>
-    {% endif %}
-</div>
+<section class="login-clean" style="background: rgb(255,255,255);">
+    <form id="account" method="post" class="shadow" style="border-radius: 1rem;"> {% csrf_token %}
+        <div class="row">
+            <div class="col d-flex justify-content-center align-items-center mb-2">
+                <h2>Logowanie <i class="la la-sign-in" style="transform: rotate(180deg);"></i></h2>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="mb-3">
+                <input name="username" class="form-control" placeholder="Nazwa użytkownika" style="border-radius: 1rem;" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="mb-3">
+                <input name="password" class="form-control" placeholder="Hasło" style="border-radius: 1rem;" type="password" required>
+            </div>
+        </div>
+        {% for field in login_form %}
+            <p>
+                {% for error in field.errors %}
+                <p style="color: red">{{ error }}</p>
+                {% endfor %}
+            </p>
+        {% endfor %}
+        {% if login_form.non_field_errors %}
+            <div style="color: red">
+                <p>{{login_form.non_field_errors}}
+            </div>
+        {% endif %}
+        <div class="form-group">
+            <div class="mb-3">
+                <button class="btn btn-primary d-block w-100" id="logInFormButton" type="submit" style="border-radius: 2rem;background: lightseagreen;">Zaloguj</button>
+            </div>
+            <a class="forgot" href="/registration">Nie masz konta? Zarejestruj się</a>
+            <a class="forgot" href="/">Nie pamiętasz hasła?</a>
+        </div>
+    </form>
+</section>
 
 {% endblock data %}
