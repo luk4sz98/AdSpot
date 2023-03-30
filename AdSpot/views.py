@@ -1,6 +1,8 @@
 from django.http import HttpResponse
-from django.shortcuts import render
-from django.contrib.auth import logout
+from django.shortcuts import redirect, render
+from django.contrib.auth import logout, login
+from AdSpot.forms import RegistrationForm
+from django.contrib.auth.models import User
 
 from AdSpot.models import AdType, Advertisement
 
@@ -13,8 +15,8 @@ def advertisement(request, id):
     data = {'advertisement' : advertisement}
     return render(request, 'advertisement.html', data)
 
-def login(request):
-    return render(request, 'registration/login.html')
+def login_view(request):
+    return render(request, 'authorizathion/login.html')
 
 def logout_view(request):
     logout(request)
@@ -22,7 +24,22 @@ def logout_view(request):
     return render(request, 'index.html', data)
 
 def registration_view(request):
-    return render(request, 'registration/registration.html')
+    user = request.user
+    if user.is_authenticated:
+        return HttpResponse(f"Już jesteś zarejestrowany jako {user.email}.")
+    context = {}
+
+    if request.method == "POST":
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            email = form.cleaned_data.get('email').lower()
+            user = User.objects.get(email=email)
+            login(request, user)  
+            return redirect("/")
+        else:
+            context['registration_form'] = form
+    return render(request, 'authorizathion/registration.html', context)
 
 def __getAdverts():
     advertisements = Advertisement.objects.all()

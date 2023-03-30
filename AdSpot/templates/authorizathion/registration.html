@@ -3,7 +3,7 @@
 {% block data %}
 
 <section class="registration" style="background: rgb(255,255,255);">
-    <form autocomplete="off" id="form" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="shadow" data-aos="fade-down" data-aos-duration="800" data-aos-delay="800" data-aos-once="true" style="border-radius: 1rem;">
+    <form autocomplete="off" id="form" method="post" class="shadow" style="border-radius: 1rem;"> {% csrf_token %}
         <div class="row">
             <div class="col d-flex justify-content-center align-items-center my-2">
                 <h2>
@@ -18,38 +18,38 @@
         </div>
         <div class="row">
             <div class="form-floating mb-3 col-md-6">
-                <input id="firstName" class="form-control" placeholder="Imie">
-                <label id="firstNameLabel" class="form-label" for="firstName">Imie</label>
-                <span class="text-danger"></span>
+                <input type="text" name="username" id="username" class="form-control" placeholder="Nazwa użytkownika" required>
+                <label id="usernameLabel" class="form-label" for="username">Nazwa użytkownika</label>
             </div>
-            <div class="form-floating mb-3 col-md-6">
-                <input id="lastName" class="form-control" placeholder="Nazwisko">
-                <label id="lastNameLabel" class="form-label" for="lastName">Nazwisko</label>
-                <span class="text-danger"></span>
-            </div>
-        </div>
-        <div class="row">
             <div class="mb-3 form-floating col">
-                <input id="email" class="form-control" placeholder="Email">
+                <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
                 <label id="emailLabel" class="form-label" for="email">Email</label>
-                <span class="text-danger"></span>
             </div>
         </div>
         <div class="row">
             <div class="form-floating mb-3 col-md-6">
-                <input class="form-control" placeholder="Hasło" id="password">
+                <input name="password1" class="form-control" placeholder="Hasło" id="password" type="password" required>
                 <label id="passwordLabel" class="form-label" for="password">Hasło</label>
-                <span class="text-danger"></span>
             </div>
             <div class="form-floating col-md-6 mb-3">
-                <input id="confirmPassword" class="form-control" placeholder="Potwierdź hasło">
+                <input name="password2" id="confirmPassword" class="form-control" placeholder="Potwierdź hasło" type="password" required>
                 <label id="confirmationLabel" class="form-label" for="confirmPassword">Potwierdź hasło</sup></label>
-                <span class="text-danger"></span>
             </div>
         </div>
-
+        {% for field in registration_form %}
+        <p>
+            {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
+            {% endfor %}
+        </p>
+        {% endfor %}
+        {% if registration_form.non_field_errors %}
+        <div style="color: red">
+            <p>{{registration_form.non_field_errors}}
+        </div>
+        {% endif %}
         <div class="mb-3">
-            <button class="btn btn-primary d-block w-50 mx-auto" id="logInFormButton" type="button" style="border-radius: 2rem;background: lightseagreen;">Zarejestruj</button>
+            <button class="btn btn-primary d-block w-50 mx-auto" id="logInFormButton" type="submit" style="border-radius: 2rem;background: lightseagreen;">Zarejestruj</button>
         </div>
         <a class="forgot" href="login">Masz już konto? Zaloguj się</a>
     </form>
