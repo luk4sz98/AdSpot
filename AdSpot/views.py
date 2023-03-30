@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import logout, login
 from AdSpot.forms import RegistrationForm
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 from AdSpot.models import AdType, Advertisement
 
@@ -35,8 +36,9 @@ def registration_view(request):
             form.save()
             email = form.cleaned_data.get('email').lower()
             user = User.objects.get(email=email)
-            login(request, user)  
-            return redirect("/")
+            messages.success(request, f'Konto {user.username} zostało utworzone. Możesz się teraz zalogować.')
+            #login(request, user)  
+            return redirect("login/")
         else:
             context['registration_form'] = form
     return render(request, 'authorizathion/registration.html', context)
