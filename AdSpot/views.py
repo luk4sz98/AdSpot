@@ -37,7 +37,6 @@ def registration_view(request):
             email = form.cleaned_data.get('email').lower()
             user = User.objects.get(email=email)
             messages.success(request, f'Konto {user.username} zostało utworzone. Możesz się teraz zalogować.')
-            #login(request, user)  
             return redirect("login/")
         else:
             context['registration_form'] = form
