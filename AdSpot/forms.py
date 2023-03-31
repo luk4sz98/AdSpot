@@ -29,7 +29,7 @@ class RegistrationForm(UserCreationForm):
 
 class LoginForm(forms.Form):
 	username = forms.CharField(max_length=254, help_text='Nazwa użytkownika jest wymagana do zalogowania.')
-	password = forms.CharField(widget=forms.PasswordInput, help_text="Adres email jest wymagany do zalogowania.")
+	password = forms.CharField(widget=forms.PasswordInput, help_text="Hasło jest wymagane do zalogowania.")
 
 	class Meta:
 		model = User
