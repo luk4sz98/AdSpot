@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{% static 'navbar.css' %}">
     <link rel="stylesheet" href="{% static 'common.css' %}">
     <link rel="stylesheet" href="{% static 'loginForm.css' %}">
+    <link rel="stylesheet" href="{% static 'resetPasswordForm.css' %}">
 </head>
 
 <body>
@@ -35,16 +36,15 @@
         <div class="offcanvas-body text-center">
             {% if user.is_authenticated %}
             <div class="mb-3">
-                <a class="btn btn-primary" id="addAdvertButton" asp-controller="Advert" asp-action="AddOrEdit">
+                <a class="btn btn-primary" id="addAdvertButton">
                     Dodaj ogłoszenie
                 </a>
             </div>
             <div class="mb-3">
-                <a class="btn btn-primary d-block w-100" id="menuButton" asp-controller="Advert"
-                    asp-action="ActiveAdverts">Ogłoszenia</a>
+                <a class="btn btn-primary d-block w-100" id="menuButton">Ogłoszenia</a>
             </div>
             <div class="mb-3">
-                <a asp-controller="Account" asp-action="Index" class="btn btn-primary d-block w-100"
+                <a class="btn btn-primary d-block w-100"
                     id="menuButton">Ustawienia</a>
             </div>
             <div class="mb-3">
