@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="{% static 'common.css' %}">
     <link rel="stylesheet" href="{% static 'loginForm.css' %}">
     <link rel="stylesheet" href="{% static 'resetPasswordForm.css' %}">
+    <style>
+        .data{
+            margin: 20px 0px;
+        }
+    </style>
 </head>
 
 <body>
@@ -41,7 +46,7 @@
                 </a>
             </div>
             <div class="mb-3">
-                <a href="/my" class="btn btn-primary d-block w-100" id="menuButton">Ogłoszenia</a>
+                <a href="/my" class="btn btn-primary d-block w-100" id="menuButton">Moje ogłoszenia</a>
             </div>
             <div class="mb-3">
                 <a class="btn btn-primary d-block w-100"
@@ -78,7 +83,7 @@
                         {{ message }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                {% elif message.tags == "warning" %}
+                {% elif message.tags == "warning" %} 
                     <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
                         {{ message }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -91,7 +96,9 @@
                 {% endif %}
             {% endfor %}
         {% endif %}        
-        {% block data %} {% endblock data %}
+        <div class="data">
+            {% block data %} {% endblock data %}
+        </div>
     </div>
 
     <footer class="footer-basic">
@@ -103,22 +110,22 @@
             </li>
             {% if user.is_authenticated %}
             <li class="list-inline-item">
-                <a class="d-none d-md-inline" href="ad">
-                    Ogłoszenia
+                <a class="d-none d-md-inline" href="/my">
+                    Moje ogłoszenia
                 </a>
             </li>
             <li class="list-inline-item">
-                <a class="d-none d-md-inline" href="ad/add">
+                <a class="d-none d-md-inline" href="/add">
                     Dodaj ogłoszenie
                 </a>
             </li>
             <li class="list-inline-item">
-                <a class="d-none d-md-inline" href="user/settings">
+                <a class="d-none d-md-inline" href="/">
                     Ustawienia
                 </a>
             </li>
             <li class="list-inline-item">
-                <a class="d-none d-md-inline" href="logout">
+                <a class="d-none d-md-inline" href="/logout">
                     Wyloguj
                 </a>
             </li>

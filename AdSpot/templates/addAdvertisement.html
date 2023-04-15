@@ -1,24 +1,67 @@
+<style>
 
+    .form {
+        flex-direction: column;
+    }
+
+    .item {
+        padding: 20px;
+        display: flex;
+        gap: 20px;
+    }
+
+    label {
+        width: 40px;
+    }
+
+    textarea {
+        width: 400px;
+        height: 300px;
+    }
+
+    .button {
+        text-decoration: none;
+        color: black;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: #d1e7dd;
+    }
+
+</style>
 {% extends 'template.html' %}
 
 {% block data %}
 <h2>Dodaj ogłoszenie</h2>
+
 <form method="POST" action="{% url 'addAdvertisement' %}">
     {% csrf_token %}
-    <label for="name">Nazwa:</label>
-    <input type="text" id="name" name="name" required>
-    
-    <label for="description">Opis:</label>
-    <textarea id="description" name="description" required></textarea>
-    
-    <label for="adType">Typ:</label>
-    <select name="adType" id="adType">
-        {% for type in adTypes %}
+    <div class="form">
+        <div class="item">
+            <label for="name">Nazwa:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
         
-        <option value="{{ type.name }}">{{ type.name }}</option>
-        {% endfor %}
-    </select>
-    <input type="submit" value="Wyślij">
+        <div class="item">
+            <label for="description">Opis:</label>
+            <textarea id="description" name="description" required></textarea>
+        </div>
+
+        <div class="item">
+            <label for="adType">Typ:</label>
+            <select name="adType" id="adType">
+                {% for type in adTypes %}
+                
+                <option value="{{ type.name }}">{{ type.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="item">
+            <a class="button" type="submit">Dodaj</a>
+        </div>
+    </div>
+    
 </form>
 {% block added %} {% endblock added %}
 {% endblock data %}

@@ -1,7 +1,6 @@
 import datetime
-from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from django.contrib.auth import logout, login
+from django.contrib.auth import logout
 from AdSpot.forms import LoginForm, RegistrationForm
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -16,6 +15,7 @@ def advertisement(request, id):
     advertisement = Advertisement.objects.get(pk=id)
     data = {'advertisement' : advertisement}
     return render(request, 'advertisement.html', data)
+
 def addAdvertisementView(request):
     adTypes = AdType.objects.all()
     data = {'adTypes': adTypes}
@@ -36,8 +36,19 @@ def addAdvertisement(request):
 
 def getMyAdvertisements(request): 
     advertisements = Advertisement.objects.filter(user_id = request.user)
-    data = {'advertisements': advertisements}
+    advertisements = advertisements.filter(status__icontains = 'accepted')
+    data = {'advertisements': advertisements, "areMine": "true"}
     return render(request, 'index.html',data)
+
+
+def deleteAdvertisement(request, id):
+    advertisement = Advertisement.objects.get(pk=id)
+
+    advertisement.delete()
+    messages.success(request, f'Usunięto.')
+
+    return redirect("myAdvertisements")
+
 
 def login_view(request):
     user = request.user
@@ -59,10 +70,13 @@ def login_view(request):
         
     context = {'login_form': form}
 
-    return render(request, 'authorizathion/login.html', context)
+    return render(request, 'authorization/login.html', context)
 
 def logout_view(request):
     logout(request)
+    user = request.user
+    if not user.is_authenticated:
+        messages.success(request, f'Wylogowałeś się.')
     data = __getAdverts()
     return render(request, 'index.html', data)
 
@@ -84,9 +98,10 @@ def registration_view(request):
         else:
             context['registration_form'] = form
 
-    return render(request, 'authorizathion/registration.html', context)
+    return render(request, 'authorization/registration.html', context)
 
 def __getAdverts():
     advertisements = Advertisement.objects.all()
+    advertisements = advertisements.filter(status__icontains = 'accepted')
     data = {'advertisements' : advertisements}
     return data

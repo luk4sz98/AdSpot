@@ -1,20 +1,26 @@
 <style>
     table, th, td {
       border:1px solid black;
-    }
-    .content {
-        width: 80%;
-        margin: 20px;
+      padding: 8px 0;
 
     }
 
-    td {
+    tr {
         text-align: center;
     }
 
-    a {
+    .url {
         text-decoration: none;
         color: black;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 4px;
+        background-color: #d1e7dd;
+    } 
+
+    .none {
+        text-align: center;
+        margin: 10px
     }
 </style>
 
@@ -22,21 +28,35 @@
 
 {% block data %}
 
+{%if not advertisements%}
+<div class="none"><i>brak ogłoszeń</i></div>
+{%else%}
 <table style="width: 100%;">
     <tr>
         <th>Nazwa</th>
         <th>Data dodania</th>
         <th>Typ</th>
         <th></th>
+        {% if areMine %}
+        <th></th>
+        {% endif %}
     </tr>
     {% for ad in advertisements %}
     <tr>
         <td>{{ ad.name }}</td>
         <td>{{ ad.date }}</td>
         <td>{{ ad.adType }}</td>
-        <td><a href="ad/{{ ad.id }}">Szczegóły</a></td>
+        <td><a href="ad/{{ ad.id }}" class="url">Szczegóły</a></td>
+        {% if areMine %}
+        <td> 
+            <a href="my/{{ ad.id}}" >
+                <img width="30" height="30" src="https://cdn-icons-png.flaticon.com/512/3481/3481306.png"/>
+            </a>
+        </td>
+        {% endif %}
     </tr>
+   
     {% endfor %}
 </table>
-
+{%endif%}
 {% endblock data %}

@@ -1,11 +1,37 @@
+<style>
+    p {
+        word-wrap: break-word;
+    }
+    .dataContainer {
+        margin: 10px 0px;
+    }
 
+    .button {
+        text-align: end;
+        
+    }
+
+    .url {
+        text-decoration: none;
+        color: black;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: #d1e7dd;
+    }
+</style>
 {% extends 'template.html' %}
 
 {% block data %}
-<h2>{{ advertisement.name }}</h2>
-<p>
+<div class="dataContainer">
+    <h2>{{ advertisement.name }}</h2>
+    <p>
+        {{ advertisement.description }}
+    </p>
+    <p>Typ ogłoszenia: {{ advertisement.adType}}</p>
+    <p>Dodano: {{ advertisement.date }}</p>
+    <p>Autor: {{ advertisement.user.username}}</p>
 
-    {{ advertisement.description }}
-</p>
-
+</div>
+<div class="button"><a class="url" href="javascript:history.back()">Wróć</a></div>
 {% endblock data %}
