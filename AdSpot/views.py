@@ -1,7 +1,7 @@
 import datetime
 from django.shortcuts import redirect, render
-from django.contrib.auth import logout
-from AdSpot.forms import LoginForm, RegistrationForm
+from django.contrib.auth import logout, authenticate
+from AdSpot.forms import DeleteAccountForm, LoginForm, RegistrationForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 
@@ -17,12 +17,18 @@ def advertisement(request, id):
     return render(request, 'advertisement.html', data)
 
 def addAdvertisementView(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, f"Musisz się zalogować by uzyskać dostęp!")
+        return redirect("/")
     adTypes = AdType.objects.all()
     data = {'adTypes': adTypes}
     return render(request, 'addAdvertisement.html', data)
 
 
 def addAdvertisement(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, f"Musisz się zalogować by uzyskać dostęp!")
+        return redirect("/")
     name = request.POST.get('name')
     description = request.POST.get('description')
     user = request.user
@@ -34,7 +40,10 @@ def addAdvertisement(request):
     data.save()
     return render(request, 'added.html')
 
-def getMyAdvertisements(request): 
+def getMyAdvertisements(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, f"Musisz się zalogować by uzyskać dostęp!")
+        return redirect("/") 
     advertisements = Advertisement.objects.filter(user_id = request.user)
     advertisements = advertisements.filter(status__icontains = 'accepted')
     data = {'advertisements': advertisements, "areMine": "true"}
@@ -42,8 +51,11 @@ def getMyAdvertisements(request):
 
 
 def deleteAdvertisement(request, id):
+    if not request.user.is_authenticated:
+        messages.warning(request, f"Musisz się zalogować by uzyskać dostęp!")
+        return redirect("/")    
+    
     advertisement = Advertisement.objects.get(pk=id)
-
     advertisement.delete()
     messages.success(request, f'Usunięto.')
 
@@ -99,6 +111,36 @@ def registration_view(request):
             context['registration_form'] = form
 
     return render(request, 'authorization/registration.html', context)
+
+def user_settings(request):
+    user = request.user
+    if not user.is_authenticated:
+        messages.warning(request, f"Musisz się zalogować by uzyskać dostęp!")
+        return redirect("/")
+    
+    context = {}
+    context = {'delete_account_form': DeleteAccountForm()}
+
+    return render(request, 'user_settings/settings.html', context)
+
+def delete_account(request):
+    user = request.user
+    if not user.is_authenticated:
+        messages.warning(request, f"Musisz się zalogować by uzyskać dostęp!")
+        return redirect("/")
+    if request.method == 'POST':
+        user_from_db = User.objects.get(pk=user.pk)
+        form = DeleteAccountForm(request.POST)
+        if form.is_valid() and form.check(request, user_from_db.username):
+            logout(request)
+            user_from_db.delete()
+            messages.success(request, f"Twoje konto zostało usunięte.")
+            return redirect('/')   
+        context = {'delete_account_form': form}        
+        return render(request, 'user_settings/settings.html', context)
+    
+    messages.error(request, 'Nieprawidłowe żądanie!')
+    return redirect(request, '/')        
 
 def __getAdverts():
     advertisements = Advertisement.objects.all()

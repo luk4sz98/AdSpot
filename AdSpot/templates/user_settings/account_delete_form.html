@@ -1,0 +1,35 @@
+<div class="col-6 accountColumn mt-5 mb-5 m-auto">
+    <div class="text-center">
+        <div class="accountContent mt-3">
+            <h5>Możesz skasować swoje konto</h5>
+            <h6><strong>Tej operacji nie można cofnąć</strong></h6>
+            <form id="formDeleteAccount" method="post" action="{% url 'delete_account' %}"> {% csrf_token %}
+                <div class="formContact">
+                    <div class="form-group">
+                        <div class="form-floating mb-3">
+                            <input id="currentPasswordDeleteDownload" name="password" required type="password" placeholder="Obecne hasło" class="form-control" style="border-radius: 1rem;" />
+                            <label for="currentPasswordDeleteDownload">Obecne hasło</label>
+                        </div>
+                    </div>
+                    {% for field in delete_account_form %}
+                    <p>
+                        {% for error in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </p>
+                    {% endfor %}
+                    {% if delete_account_form.non_field_errors %}
+                        <div style="color: red">
+                            <p>{{delete_account_form.non_field_errors}}
+                        </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <button id="deleteButton" class="btn btn-danger deleteButton" type="submit">Usuń konto</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

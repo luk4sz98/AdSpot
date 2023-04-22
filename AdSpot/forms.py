@@ -44,3 +44,18 @@ class LoginForm(forms.Form):
 			return True
 		self.add_error(None, "Nieprawidłowe dane logowania")
 		return False
+	
+class DeleteAccountForm(forms.Form):
+	password = forms.CharField(widget=forms.PasswordInput, help_text="Hasło jest wymagane.")
+
+	class Meta:
+		model = User
+		fields = ('password')
+
+	def check(self, request, username):
+		password = self.cleaned_data['password']
+		user = authenticate(request, username=username, password=password)
+		if user is not None:
+			return True
+		self.add_error(None, "Nieprawidłowe hasło")
+		return False
