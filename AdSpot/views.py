@@ -1,7 +1,7 @@
 import datetime
 from django.shortcuts import redirect, render
-from django.contrib.auth import logout, authenticate
-from AdSpot.forms import DeleteAccountForm, LoginForm, RegistrationForm
+from django.contrib.auth import logout, update_session_auth_hash
+from AdSpot.forms import DeleteAccountForm, LoginForm, RegistrationForm, CustomPasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 
@@ -140,7 +140,38 @@ def delete_account(request):
         return render(request, 'user_settings/settings.html', context)
     
     messages.error(request, 'Nieprawidłowe żądanie!')
-    return redirect(request, '/')        
+    return redirect(request, '/')   
+
+def change_password(request):
+    user = request.user     
+    if not user.is_authenticated:
+        messages.warning(request, f"Musisz się zalogować by uzyskać dostęp!")
+        return redirect("/")
+    if request.method == 'POST':
+        context = {}
+        user_from_db = User.objects.get(pk=user.pk)
+        form = CustomPasswordChangeForm(request.POST)
+        if form.is_valid():
+            current_password = form.cleaned_data['old_password']
+            new_password = form.cleaned_data['new_password']
+            new_password_confirmation = form.cleaned_data['new_password_confirmation']
+            if (not user_from_db.check_password(current_password) or
+                new_password != new_password_confirmation):
+                form.add_error(None, "Nieprawidłowe hasła, spróbuj jeszcze raz.")
+                context = {'change_password_form': form}
+                return render(request, 'user_settings/settings.html', context)
+
+            user_from_db.set_password(new_password)
+            user_from_db.save()
+            update_session_auth_hash(request, user_from_db)
+            messages.success(request, f"Twoje hasło zostało zmienione")
+            return redirect('/') 
+        form.add_error(None, "Nieprawidłowe dane, sprawdz podane hasła")  
+        context = {'change_password_form': form}        
+        return render(request, 'user_settings/settings.html', context)
+    
+    messages.error(request, 'Nieprawidłowe żądanie!')
+    return redirect(request, '/')      
 
 def __getAdverts():
     advertisements = Advertisement.objects.all()

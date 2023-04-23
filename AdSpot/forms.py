@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 
@@ -59,3 +59,27 @@ class DeleteAccountForm(forms.Form):
 			return True
 		self.add_error(None, "Nieprawidłowe hasło")
 		return False
+	
+class CustomPasswordChangeForm(forms.Form):
+    
+	old_password = forms.CharField(
+        strip=True,
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
+        help_text='Wprowadź obecne hasło',
+    )  
+    
+	new_password = forms.CharField(
+        strip=True,
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
+        help_text='Wprowadź nowe hasło'
+    )    
+    
+	new_password_confirmation = forms.CharField(
+        strip=True,
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
+        help_text='Wprowadź to samo hasło jak wcześniej, dla weryfikacji.'
+    )
+
+	class Meta:
+		model = User
+		fields = ('old_password', 'new_password', 'new_password_confirmation')		    

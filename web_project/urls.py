@@ -17,6 +17,7 @@ urlpatterns = [
     path('my/<id>', deleteAdvertisement, name='deleteAdvertisement'),
     path('settings', user_settings),
     path('delete_account', delete_account, name='delete_account'),
+    path('change_password', change_password, name='change_password'),
 
     # resetowanie hasła
     path('password_reset/', auth_views.PasswordResetView.as_view(
