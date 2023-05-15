@@ -15,6 +15,7 @@ class Advertisement(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     date = models.DateField()
+    contact_number = models.CharField(max_length=12, default="123 456 789")
     adType = models.ForeignKey(AdType, on_delete=models.CASCADE, null=False)
     status = models.CharField(choices=AdStatus, max_length=30, default=AdStatus[0])
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
