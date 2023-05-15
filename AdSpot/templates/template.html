@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{% static 'loginForm.css' %}">
     <link rel="stylesheet" href="{% static 'resetPasswordForm.css' %}">
     <link rel="stylesheet" href="{% static 'accountSettings.css' %}">
+    <link rel="stylesheet" href="{% static 'advert.css' %}">
     <style>
         .data{
             margin: 20px 0px;
@@ -86,6 +87,11 @@
                     </div>
                 {% elif message.tags == "warning" %} 
                     <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% elif message.tags == "info" %} 
+                    <div class="alert alert-info alert-dismissible fade show mt-3" role="alert">
                         {{ message }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>

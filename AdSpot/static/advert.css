@@ -1,0 +1,46 @@
+.advertSection {
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    padding: 15px;
+    border-radius: 1rem;
+    background: #ffffff;
+    color: #343434;
+    max-width: 1200px;
+    width: 75%;
+    margin: 0 auto;
+}
+
+.advertSection .form-control:enabled {
+    background: #f7f9fc;
+    border: none;
+    border-bottom: 1px solid #dfe7f1;
+    box-shadow: none;
+    outline: none;
+    color: inherit;
+    text-indent: 8px;
+}
+
+.advertSection .form-select:enabled {
+    background: #f7f9fc;
+    border: none;
+    border-bottom: 1px solid #dfe7f1;
+    box-shadow: none;
+    outline: none;
+    color: #343434;
+    text-indent: 8px;
+}
+
+.advertSection .form-select:disabled {
+    text-indent: 4px;   
+}
+
+select:hover {
+    cursor: pointer;
+}
+
+select option:hover {
+    cursor: pointer;
+}
+
+.advertSection .form-label {
+    text-indent: 24px;
+}

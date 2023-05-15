@@ -1,67 +1,80 @@
-<style>
-
-    .form {
-        flex-direction: column;
-    }
-
-    .item {
-        padding: 20px;
-        display: flex;
-        gap: 20px;
-    }
-
-    label {
-        width: 40px;
-    }
-
-    textarea {
-        width: 400px;
-        height: 300px;
-    }
-
-    .button {
-        text-decoration: none;
-        color: black;
-        border: 1px solid black;
-        border-radius: 10px;
-        padding: 10px;
-        background-color: #d1e7dd;
-    }
-
-</style>
 {% extends 'template.html' %}
 
 {% block data %}
-<h2>Dodaj ogłoszenie</h2>
 
-<form method="POST" action="{% url 'addAdvertisement' %}">
-    {% csrf_token %}
-    <div class="form">
-        <div class="item">
-            <label for="name">Nazwa:</label>
-            <input type="text" id="name" name="name" required>
-        </div>
-        
-        <div class="item">
-            <label for="description">Opis:</label>
-            <textarea id="description" name="description" required></textarea>
-        </div>
-
-        <div class="item">
-            <label for="adType">Typ:</label>
-            <select name="adType" id="adType">
-                {% for type in adTypes %}
-                
-                <option value="{{ type.name }}">{{ type.name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="item">
-            <a class="button" type="submit">Dodaj</a>
+<section class="mb-5 mt-5">
+    <div class="advertSection">
+        <div class="container">
+            <div class="row">
+                <div id="infoAlert" class="alert alert-info alert-dismissible fade show" role="alert">
+                    <h5>Zanim zaczniesz</h5>
+                    Upewnij się, że masz dane pod ręką, usprawni to proces dodawania ogłoszenia :)
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <hr />
+                    <div class="d-flex justify-content-start align-items-center mb-3">
+                        <span>Pamiętaj że im <strong>dokładniejszy opis i lepszy tytuł</strong> tym ogłoszenie będzie więcej wyświetlane</span>
+                    </div>
+                </div>
+            </div>
+            <form id="addAdvertForm" method="post"> {% csrf_token %}
+                <h3 class="text-center infoHeader">Dodawanie ogłoszenia</h3>
+                <hr />
+                <div class="row">
+                    <div class="form-floating mt-3 mb-3 col-7 mx-auto">
+                        <input type="text" name="name"  class="form-control" placeholder="Tytuł ogłoszenia" required>
+                        <label id="nameLabel" class="form-label" for="name">Tytuł ogłoszenia</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-floating mb-3 col-7 mx-auto">
+                        <textarea required name="description" maxlength="4096" id="description" rows="14" placeholder="Opis" class="form-control" style="min-height: 140px; border-radius: 1rem; resize: none;"></textarea>
+                        <label class="form-label" for="description">Opis</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-floating mb-3 col-7 mx-auto">
+                        <select id="add_typeId" name="adType" class="form-select" style="border-radius: 1rem;">
+                            {% for type in adTypes %}           
+                            <option value="{{ type.name }}">{{ type.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="adType" class="form-label labelInput">Kategoria</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-floating col-7 mx-auto">
+                        <input type="text" name="contact_number" class="form-control" placeholder="Nr kontaktowy" required aria-describedby="contactHelpBlock">
+                        <label id="contactNumberLabel" class="form-label" for="contact_number">Nr kontaktowy</label>
+                        <div id="contactHelpBlock" class="form-text ">
+                            Wymagany format: XXX XXX XXX 
+                            <br>Gdzie X to cyfra
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-7 mx-auto">
+                    {% for field in add_advert_form %}
+                    <p>
+                        {% for error in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </p>
+                    {% endfor %}
+                    {% if add_advert_form.non_field_errors %}
+                        <div style="color: red">
+                            <p>{{add_advert_form.non_field_errors}}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="row">
+                    <div class="form-group text-center">
+                        <div class="mt-2 mb-3">
+                            <button id="deleteButton" class="btn btn-success" style="width:200px;margin: 0 auto;border-radius: 2rem;background: lightseagreen;border: none;" type="submit">Dodaj ogłoszenie</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-    
-</form>
-{% block added %} {% endblock added %}
+</section>
+
 {% endblock data %}

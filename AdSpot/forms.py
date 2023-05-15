@@ -1,7 +1,11 @@
+import datetime
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from django.core.validators import RegexValidator
+
+from AdSpot.models import AdStatus, AdType, Advertisement
 
 
 class RegistrationForm(UserCreationForm):
@@ -82,4 +86,33 @@ class CustomPasswordChangeForm(forms.Form):
 
 	class Meta:
 		model = User
-		fields = ('old_password', 'new_password', 'new_password_confirmation')		    
+		fields = ('old_password', 'new_password', 'new_password_confirmation')
+
+class AddAdvertForm(forms.Form):  
+	name = forms.CharField(
+        strip=True,
+        help_text='Podaj tytuł ogłoszenia',
+		max_length=100
+    )  
+    
+	description = forms.CharField(strip=True, help_text='Podaj opis ogłoszenia')
+    
+	contact_number = forms.CharField(
+        strip=True,
+		max_length=12,
+        help_text='Podaj numer kontaktowy',
+        validators=[
+            RegexValidator(
+                regex=r'^\d{3}\s\d{3}\s\d{3}$',
+                message='Wprowadź numer w formacie "xxx xxx xxx"'
+            )
+        ],	
+    )
+
+	def create_advert(self, user, adType):
+		name = self.cleaned_data['name']
+		description = self.cleaned_data['description']
+
+		return Advertisement(name = name, description = description, 
+		       date = datetime.datetime.now(), status = AdStatus[0], 
+			   user = user, adType = adType)	    		    

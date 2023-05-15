@@ -1,7 +1,7 @@
 import datetime
 from django.shortcuts import redirect, render
 from django.contrib.auth import logout, update_session_auth_hash
-from AdSpot.forms import DeleteAccountForm, LoginForm, RegistrationForm, CustomPasswordChangeForm
+from AdSpot.forms import AddAdvertForm, DeleteAccountForm, LoginForm, RegistrationForm, CustomPasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 
@@ -16,29 +16,30 @@ def advertisement(request, id):
     data = {'advertisement' : advertisement}
     return render(request, 'advertisement.html', data)
 
-def addAdvertisementView(request):
+def add_advertisement_view(request):
     if not request.user.is_authenticated:
         messages.warning(request, f"Musisz się zalogować by uzyskać dostęp!")
         return redirect("/")
-    adTypes = AdType.objects.all()
-    data = {'adTypes': adTypes}
-    return render(request, 'addAdvertisement.html', data)
+    
+    context = {}
+    if request.method == "POST":
+        add_advert_form = AddAdvertForm(request.POST)
+        if add_advert_form.is_valid():
+            adTypeName = request.POST.get('adType')
+            adType = AdType.objects.get(name = adTypeName)
+            new_advert = add_advert_form.create_advert(request.user, adType)
+            if new_advert is not None:
+                new_advert.save()
+                messages.info(request, f'Ogłoszenie zostało dodane. Musi zostać zaakceptowane przez moderatora :)')
+                advertisements = Advertisement.objects.filter(user_id = request.user)
+                data = {'advertisements': advertisements, "areMine": "true"}
+                return render(request, 'index.html', data)
+        add_advert_form.add_error(None, "Nieprawidłowe dane")  
+    else:
+        add_advert_form = AddAdvertForm()
 
-
-def addAdvertisement(request):
-    if not request.user.is_authenticated:
-        messages.warning(request, f"Musisz się zalogować by uzyskać dostęp!")
-        return redirect("/")
-    name = request.POST.get('name')
-    description = request.POST.get('description')
-    user = request.user
-    adTypeName = request.POST.get('adType')
-    adType = AdType.objects.get(name = adTypeName)
-    date = datetime.datetime.now()
-    status = AdStatus[0]
-    data = Advertisement(name = name, description = description,  date = date, status= status, user = user, adType = adType)
-    data.save()
-    return render(request, 'added.html')
+    context = {'add_advert_form': add_advert_form, 'adTypes': AdType.objects.all()}   
+    return render(request, 'addAdvertisement.html', context)
 
 def getMyAdvertisements(request):
     if not request.user.is_authenticated:
@@ -47,7 +48,7 @@ def getMyAdvertisements(request):
     advertisements = Advertisement.objects.filter(user_id = request.user)
     advertisements = advertisements.filter(status__icontains = 'accepted')
     data = {'advertisements': advertisements, "areMine": "true"}
-    return render(request, 'index.html',data)
+    return render(request, 'index.html', data)
 
 
 def deleteAdvertisement(request, id):
