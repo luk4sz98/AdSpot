@@ -13,7 +13,8 @@ def index(request):
 
 def advertisement(request, id):
     advertisement = Advertisement.objects.get(pk=id)
-    data = {'advertisement' : advertisement}
+
+    data = {'advertisement' : advertisement, 'user' : advertisement.user}
     return render(request, 'advertisement.html', data)
 
 def add_advertisement_view(request):

@@ -1,0 +1,23 @@
+
+.advertInfoSection {
+    background: #ffffff;
+    border-radius: 1rem;
+    color: #343434;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    padding: 15px;
+}
+
+.userInfo {
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+    padding: 0 15px 15px 15px;
+    border-radius: 0.5rem;
+    width: 100%;
+}
+
+.btn {
+    box-shadow: none;
+    text-shadow: none;
+    padding: 7px;
+    border-radius: 2rem;
+    opacity: 1;
+}

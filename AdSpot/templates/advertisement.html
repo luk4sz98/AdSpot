@@ -1,37 +1,48 @@
-<style>
-    p {
-        word-wrap: break-word;
-    }
-    .dataContainer {
-        margin: 10px 0px;
-    }
-
-    .button {
-        text-align: end;
-        
-    }
-
-    .url {
-        text-decoration: none;
-        color: black;
-        border: 1px solid black;
-        border-radius: 10px;
-        padding: 10px;
-        background-color: #d1e7dd;
-    }
-</style>
 {% extends 'template.html' %}
 
 {% block data %}
-<div class="dataContainer">
-    <h2>{{ advertisement.name }}</h2>
-    <p>
-        {{ advertisement.description }}
-    </p>
-    <p>Typ ogłoszenia: {{ advertisement.adType}}</p>
-    <p>Dodano: {{ advertisement.date }}</p>
-    <p>Autor: {{ advertisement.user.username}}</p>
 
+<div class="container mt-5 pt-2 gap-0">
+    <div class="row">
+        <div id="advertInfoBlock" class="col-lg-12 d-flex flex-column">
+            <div class="col-12 advertInfoSection ">
+                <div class="row">
+                    <h2 class="ms-2">{{ advertisement.name }}</h2>
+                </div>
+                <div class="flex-row pt-3 ps-2 collapse show" id="descriptionContent">
+                    <span style="white-space: pre-wrap; font-size:20px;">{{ advertisement.description }}</span>
+                </div>
+                <div class="row">
+                    <div class="d-flex justify-content-end" style="margin-top: 70px;">
+                        <span style="margin-top: 15px;">Utworzono {{ advertisement.date|date:'d/m/Y' }}</span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="userInfoBlock" class="col-lg-5 mt-4 justify-content-end">
+            <div class="userInfo d-flex justify-content-end align-items-end">
+                <div class="row mt-2 ">
+                    <h4 style="font-weight: normal;" class="ms-2">Użytkownik <strong>{{ user.username }}</strong></h4>
+                    <div class="col-12">
+                        <span style="font-size: 20px;" class="ms-2">Zarejestrowany w <strong>{{ user.date_joined.year }}</strong></span>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span style="font-size: 20px;" class="ms-2">Lokalizacja ogłoszenia <strong>{{ advertisement.localization }}</strong></span>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <button id="phone" class="btn btn-outline-primary d-flex justify-content-center align-items-center shadow-none" style="height: 35px; margin-top:15px;cursor:default !important">
+                            <span id="text" style="font-size: 19px;" class="ms-2">Telefon {{ advertisement.contact_number }}</span>
+                        </button>
+                    </div>
+                    <div class="col-12 mt-3 d-flex justify-content-end">
+                        <a class="btn btn-primary col-2" style="height: 30px; padding: 4px; margin-top: 15px;"  id="addAdvertButton" href="javascript:history.back()">Powrót</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="button"><a class="url" href="javascript:history.back()">Wróć</a></div>
+
 {% endblock data %}
