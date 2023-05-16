@@ -96,6 +96,12 @@ class AddAdvertForm(forms.Form):
     )  
     
 	description = forms.CharField(strip=True, help_text='Podaj opis ogłoszenia')
+
+	localization = forms.CharField(
+        strip=True,
+        help_text='Podaj lokalizację',
+		max_length=100
+    )  	
     
 	contact_number = forms.CharField(
         strip=True,
@@ -112,7 +118,10 @@ class AddAdvertForm(forms.Form):
 	def create_advert(self, user, adType):
 		name = self.cleaned_data['name']
 		description = self.cleaned_data['description']
+		contact_number = self.cleaned_data['contact_number']
+		localization = self.cleaned_data['localization']
 
 		return Advertisement(name = name, description = description, 
-		       date = datetime.datetime.now(), status = AdStatus[0], 
+		       date = datetime.datetime.now(), status = AdStatus[0],
+		       contact_number = contact_number, localization = localization,
 			   user = user, adType = adType)	    		    
