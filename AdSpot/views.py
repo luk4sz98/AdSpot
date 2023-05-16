@@ -33,8 +33,8 @@ def add_advertisement_view(request):
                 new_advert.save()
                 messages.info(request, f'Ogłoszenie zostało dodane. Musi zostać zaakceptowane przez moderatora :)')
                 advertisements = Advertisement.objects.filter(user_id = request.user)
-                data = {'advertisements': advertisements, "areMine": "true"}
-                return render(request, 'index.html', data)
+                data = {'advertisements': advertisements}
+                return render(request, 'userPendingAdverts.html', data)
         add_advert_form.add_error(None, "Nieprawidłowe dane")  
     else:
         add_advert_form = AddAdvertForm()
@@ -49,8 +49,16 @@ def getMyAdvertisements(request):
     advertisements = Advertisement.objects.filter(user_id = request.user)
     advertisements = advertisements.filter(status__icontains = 'accepted')
     data = {'advertisements': advertisements, "areMine": "true"}
-    return render(request, 'index.html', data)
+    return render(request, 'userActiveAdverts.html', data)
 
+def user_pending_adverts_view(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, f"Musisz się zalogować by uzyskać dostęp!")
+        return redirect("/") 
+    advertisements = Advertisement.objects.filter(user_id = request.user)
+    advertisements = advertisements.filter(status__icontains = 'pending')
+    data = {'advertisements': advertisements}
+    return render(request, 'userPendingAdverts.html', data)
 
 def deleteAdvertisement(request, id):
     if not request.user.is_authenticated:

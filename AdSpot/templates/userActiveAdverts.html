@@ -1,0 +1,78 @@
+<style>
+    table, th, td {
+      border:1px solid black;
+      padding: 8px 0;
+
+    }
+
+    tr {
+        text-align: center;
+    }
+
+    .url {
+        text-decoration: none;
+        color: black;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 4px;
+        background-color: #d1e7dd;
+    } 
+
+    .none {
+        text-align: center;
+        margin: 10px
+    }
+</style>
+
+{% extends 'template.html' %}
+
+{% block data %}
+
+<div class="row g-0">
+    <div class="d-flex justify-content-center justify-content-md-start my-3">
+        <nav class="navbar navbar-expand navbar-light">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link subLink active" href="/my/active">Aktywne</a>
+                        </li>
+                        <li class="nav-item mx-5 mx-md-3">
+                            <a id="pendingLink" class="nav-link subLink" href="/my/pending">Oczekujące</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+{%if not advertisements%}
+<div class="none"><i>brak ogłoszeń</i></div>
+{%else%}
+<table style="width: 100%;">
+    <tr>
+        <th>Nazwa</th>
+        <th>Data dodania</th>
+        <th>Typ</th>
+        <th></th>
+        <th></th>
+    </tr>
+    {% for ad in advertisements %}
+    <tr>
+        <td>{{ ad.name }}</td>
+        <td>{{ ad.date }}</td>
+        <td>{{ ad.adType }}</td>
+        <td><a href="/ad/{{ ad.id }}" class="url">Szczegóły</a></td>
+        <td> 
+            <a href="/my/{{ ad.id}}" >
+                <img width="30" height="30" src="https://cdn-icons-png.flaticon.com/512/3481/3481306.png"/>
+            </a>
+        </td>
+    </tr>
+   
+    {% endfor %}
+</table>
+{%endif%}
+
+{% endblock data %}

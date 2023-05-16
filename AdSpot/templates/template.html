@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{% static 'accountSettings.css' %}">
     <link rel="stylesheet" href="{% static 'advert.css' %}">
     <link rel="stylesheet" href="{% static 'userAdvert.css' %}">
+    
     <style>
         .data{
             margin: 20px 0px;
@@ -49,7 +50,7 @@
                 </a>
             </div>
             <div class="mb-3">
-                <a href="/my" class="btn btn-primary d-block w-100" id="menuButton">Moje ogłoszenia</a>
+                <a href="/my/active" class="btn btn-primary d-block w-100" id="menuButton">Moje ogłoszenia</a>
             </div>
             <div class="mb-3">
                 <a href="/settings" class="btn btn-primary d-block w-100"
@@ -118,7 +119,7 @@
             </li>
             {% if user.is_authenticated %}
             <li class="list-inline-item">
-                <a class="d-none d-md-inline" href="/my">
+                <a class="d-none d-md-inline" href="/my/active">
                     Moje ogłoszenia
                 </a>
             </li>
