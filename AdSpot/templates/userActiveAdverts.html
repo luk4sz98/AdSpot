@@ -15,12 +15,15 @@
         border: 1px solid black;
         border-radius: 10px;
         padding: 4px;
-        background-color: #d1e7dd;
+        background-color: #a9e2e5;
     } 
 
     .none {
         text-align: center;
         margin: 10px
+    }
+    .link {
+        color: black;
     }
 </style>
 
@@ -48,7 +51,11 @@
 </div>
 
 {%if not advertisements%}
-<div class="none"><i>brak ogłoszeń</i></div>
+<div class="none">
+    <i>brak ogłoszeń<br/>
+        <a href="/add"  class="link">dodaj nowe</a>
+    </i>
+</div>
 {%else%}
 <table style="width: 100%;">
     <tr>

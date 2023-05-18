@@ -22,6 +22,9 @@
         text-align: center;
         margin: 10px
     }
+    .link {
+        color: black;
+    }
 </style>
 
 {% extends 'template.html' %}
@@ -29,7 +32,12 @@
 {% block data %}
 
 {%if not advertisements%}
-<div class="none"><i>brak ogłoszeń</i></div>
+<div class="none">
+    <i>brak ogłoszeń<br/>
+        <a href="/add"  class="link">dodaj nowe</a>
+    </i>
+</div>
+
 {%else%}
 <table style="width: 100%;">
     <tr>

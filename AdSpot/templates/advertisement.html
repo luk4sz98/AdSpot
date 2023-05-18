@@ -12,16 +12,7 @@
                 <div class="flex-row pt-3 ps-2 collapse show" id="descriptionContent">
                     <span style="white-space: pre-wrap; font-size:20px;">{{ advertisement.description }}</span>
                 </div>
-                <div class="row">
-                    <div class="d-flex justify-content-end" style="margin-top: 70px;">
-                        <span style="margin-top: 15px;">Utworzono {{ advertisement.date|date:'d/m/Y' }}</span>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="userInfoBlock" class="col-lg-5 mt-4 justify-content-end">
-            <div class="userInfo d-flex justify-content-end align-items-end">
+                
                 <div class="row mt-2 ">
                     <h4 style="font-weight: normal;" class="ms-2">Użytkownik <strong>{{ user.username }}</strong></h4>
                     <div class="col-12">
@@ -32,12 +23,20 @@
                         <span style="font-size: 20px;" class="ms-2">Lokalizacja ogłoszenia <strong>{{ advertisement.localization }}</strong></span>
                     </div>
                     <div class="col-12 mt-2">
-                        <button id="phone" class="btn btn-outline-primary d-flex justify-content-center align-items-center shadow-none" style="height: 35px; margin-top:15px;cursor:default !important">
+                        <button id="phone" class="btn btn-outline-primary d-flex justify-content-center align-items-center shadow-none" style="height: 35px; margin-top:15px;cursor:default !important; padding: 10px">
                             <span id="text" style="font-size: 19px;" class="ms-2">Telefon {{ advertisement.contact_number }}</span>
                         </button>
                     </div>
-                    <div class="col-12 mt-3 d-flex justify-content-end">
-                        <a class="btn btn-primary col-2" style="height: 30px; padding: 4px; margin-top: 15px;"  id="addAdvertButton" href="javascript:history.back()">Powrót</a>
+                    <div class="d-flex flex-column" style="background: red;">
+                        <div class="col-12 mt-3 d-flex justify-content-end">
+                            <a class="btn btn-primary col-2" style="height: 30px; padding: 4px; margin-top: 15px;"  id="addAdvertButton" href="javascript:history.back()">Powrót</a>
+                        </div>
+                        <div class="row">
+                            <div class="d-flex justify-content-start" style="margin-top: 70px;">
+                                <span style="margin-top: 15px;">Utworzono {{ advertisement.date|date:'d/m/Y' }}</span>
+                                
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
