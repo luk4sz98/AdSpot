@@ -1,32 +1,3 @@
-<style>
-    table, th, td {
-      border:1px solid black;
-      padding: 8px 0;
-
-    }
-
-    tr {
-        text-align: center;
-    }
-
-    .url {
-        text-decoration: none;
-        color: black;
-        border: 1px solid black;
-        border-radius: 10px;
-        padding: 4px;
-        background-color: #a9e2e5;
-    } 
-
-    .none {
-        text-align: center;
-        margin: 10px
-    }
-    .link {
-        color: black;
-    }
-</style>
-
 {% extends 'template.html' %}
 
 {% block data %}
@@ -57,29 +28,31 @@
     </i>
 </div>
 {%else%}
-<table style="width: 100%;">
-    <tr>
-        <th>Nazwa</th>
-        <th>Data dodania</th>
-        <th>Typ</th>
-        <th></th>
-        <th></th>
-    </tr>
-    {% for ad in advertisements %}
-    <tr>
-        <td>{{ ad.name }}</td>
-        <td>{{ ad.date }}</td>
-        <td>{{ ad.adType }}</td>
-        <td><a href="/ad/{{ ad.id }}" class="url">Szczegóły</a></td>
-        <td> 
-            <a href="/my/{{ ad.id}}" >
-                <img width="30" height="30" src="https://cdn-icons-png.flaticon.com/512/3481/3481306.png"/>
-            </a>
-        </td>
-    </tr>
-   
-    {% endfor %}
-</table>
+<div style="width: 100%; border: 1px solid lightseagreen; border-radius: 20px;">
+    <table style="width: 100%;">
+        <tr>
+            <th>Nazwa</th>
+            <th>Data dodania</th>
+            <th>Typ</th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for ad in advertisements %}
+        <tr>
+            <td>{{ ad.name }}</td>
+            <td>{{ ad.date }}</td>
+            <td>{{ ad.adType }}</td>
+            <td><a href="/ad/{{ ad.id }}" class="url">Szczegóły</a></td>
+            <td> 
+                <a href="/my/{{ ad.id}}" >
+                    <img width="30" height="30" src="https://cdn-icons-png.flaticon.com/512/3481/3481306.png"/>
+                </a>
+            </td>
+        </tr>
+       
+        {% endfor %}
+    </table>
+</div>
 {%endif%}
 
 {% endblock data %}

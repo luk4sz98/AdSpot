@@ -174,3 +174,9 @@ footer {
 .advertLink:hover {
     font-weight: 500;
 }
+
+#phone {
+    background-color:  white;
+    color: lightseagreen;
+    border: 1px solid lightseagreen;
+}
