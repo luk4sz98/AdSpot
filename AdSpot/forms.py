@@ -115,13 +115,16 @@ class AddAdvertForm(forms.Form):
         ],	
     )
 
+	image = forms.ImageField() 
+
 	def create_advert(self, user, adType):
 		name = self.cleaned_data['name']
 		description = self.cleaned_data['description']
 		contact_number = self.cleaned_data['contact_number']
 		localization = self.cleaned_data['localization']
+		image = self.cleaned_data['image']
 
 		return Advertisement(name = name, description = description, 
 		       date = datetime.datetime.now(), status = AdStatus[0],
 		       contact_number = contact_number, localization = localization,
-			   user = user, adType = adType)	    		    
+			   user = user, adType = adType, image = image)	    		    

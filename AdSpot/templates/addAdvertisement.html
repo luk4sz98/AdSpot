@@ -16,7 +16,7 @@
                     </div>
                 </div>
             </div>
-            <form id="addAdvertForm" method="post"> {% csrf_token %}
+            <form id="addAdvertForm" method="post" enctype="multipart/form-data"> {% csrf_token %}
                 <h3 class="text-center infoHeader">Dodawanie ogłoszenia</h3>
                 <hr />
                 <div class="row">
@@ -55,6 +55,12 @@
                             Wymagany format: XXX XXX XXX 
                             <br>Gdzie X to cyfra
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-floating mt-3 mb-3 col-7 mx-auto">
+                        <input type="file" name="image"  class="form-control" placeholder="Zdjęcie" required>
+                        <label id="imageLabel" class="form-label" for="image">Zdjęcie</label>
                     </div>
                 </div>
                 <div class="row col-7 mx-auto">

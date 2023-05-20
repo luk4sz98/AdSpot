@@ -24,7 +24,7 @@ def add_advertisement_view(request):
     
     context = {}
     if request.method == "POST":
-        add_advert_form = AddAdvertForm(request.POST)
+        add_advert_form = AddAdvertForm(request.POST, request.FILES)
         if add_advert_form.is_valid():
             adTypeName = request.POST.get('adType')
             adType = AdType.objects.get(name = adTypeName)

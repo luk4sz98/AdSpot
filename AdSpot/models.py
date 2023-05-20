@@ -20,6 +20,7 @@ class Advertisement(models.Model):
     adType = models.ForeignKey(AdType, on_delete=models.CASCADE, null=False)
     status = models.CharField(choices=AdStatus, max_length=30, default=AdStatus[0])
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    image = models.ImageField(null=True, blank=True, upload_to='images/')
 
     def __str__(self):
         return self.name
