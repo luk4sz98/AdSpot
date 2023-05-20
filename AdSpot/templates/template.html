@@ -33,7 +33,7 @@
             <form class="d-flex" method="post" action="{% url 'search_adds' %}"> 
                 {% csrf_token %}
                 <div class="input-group">
-                    <input style="min-width:300px;box-shadow: none;outline: none;" list="datalistcategoriesOptions" 
+                    <input style="min-width:300px;box-shadow: none;outline: none;" list="datalistcategoriesOptions" autocomplete="off"
                            class="form-control" placeholder="Wyszukaj po nazwie lub kategorii..." 
                            type="text" name="q" value="{{ query }}" aria-label="Search">
                     <datalist id="datalistcategoriesOptions">
