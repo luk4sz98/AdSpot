@@ -30,13 +30,28 @@
     <nav class="menu navbar navbar-light">
         <div class="container">
             <a class="navbar-brand" href="/">AdSpot</a>
+            <form class="d-flex" method="post" action="{% url 'search_adds' %}"> 
+                {% csrf_token %}
+                <div class="input-group">
+                    <input style="min-width:300px;box-shadow: none;outline: none;" list="datalistcategoriesOptions" 
+                           class="form-control" placeholder="Wyszukaj po nazwie lub kategorii..." 
+                           type="text" name="q" value="{{ query }}" aria-label="Search">
+                    <datalist id="datalistcategoriesOptions">
+                        {% for adType in adTypes %}           
+                        <option value="{{ adType.name }}">{{ adType.name }}</option>
+                        {% endfor %}
+                      </datalist>
+                    <button class="input-group-text" type="submit">
+                        <img width="30" height="30" src="https://cdn-icons-png.flaticon.com/512/54/54481.png">
+                    </button>
+                </div>
+            </form>
             <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
                 href="#offcanvas" aria-controls="offcanvas">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
     </nav>
-
     <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvas"
         aria-labelledby="offcanvasLabel">
         <div class="offcanvas-header">

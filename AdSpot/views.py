@@ -9,6 +9,8 @@ from AdSpot.models import AdStatus, AdType, Advertisement
 
 def index(request):
     data = __getAdverts()
+    adTypes = AdType.objects.all()
+    data['adTypes'] = adTypes
     return render(request, 'index.html', data)
 
 def advertisement(request, id):
@@ -181,7 +183,17 @@ def change_password(request):
         return render(request, 'user_settings/settings.html', context)
     
     messages.error(request, 'Nieprawidłowe żądanie!')
-    return redirect(request, '/')      
+    return redirect(request, '/')     
+
+def search_adds_view(request):
+    query = request.POST.get('q')
+    if query:
+        ads = Advertisement.objects.filter(name__icontains=query) | Advertisement.objects.filter(adType__name__icontains=query)
+    else:
+        ads = Advertisement.objects.all()
+    adTypes = AdType.objects.all()
+    data = {'advertisements': ads, "areMine": "false", "adTypes" : adTypes, "query" : query}
+    return render(request, 'index.html', data) 
 
 def __getAdverts():
     advertisements = Advertisement.objects.all()
